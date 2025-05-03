@@ -1,3 +1,8 @@
+using BirdJsonProject.EndPoint;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -36,9 +41,26 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+app.MapEndpoint();
 app.Run();
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}
+
+
+
+public class BirdResponseModel
+{
+    public List<BirdModel> Tbl_Bird { get; set; }
+}
+
+public class BirdModel
+{
+    public int Id { get; set; }
+    public string BirdMyanmarName { get; set; }
+    public string BirdEnglishName { get; set; }
+    public string Description { get; set; }
+    public string ImagePath { get; set; }
 }
